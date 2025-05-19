@@ -22,9 +22,9 @@ jobs:
         git clone --depth=1 -b next-dev https://github.com/rockchip-linux/u-boot.git
         ls
         ls ../
-        cp ../configs/rk3566_miyoo_defconfig u-boot/configs/
-        cp ../u-boot-miyoo.dts u-boot/arch/arm/dts/rk3566-miyoo.dts
-        cp ../boot.cmd ../build.sh u-boot/
+        cp ./configs/rk3566_miyoo_defconfig u-boot/configs/
+        cp ./u-boot-miyoo.dts u-boot/arch/arm/dts/rk3566-miyoo.dts
+        cp ./boot.cmd ./build.sh u-boot/
         cd u-boot
         chmod +x build.sh
         ./build.sh
