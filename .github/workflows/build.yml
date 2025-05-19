@@ -1,0 +1,34 @@
+name: Build RK3566 Bootloader
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-aarch64-linux-gnu build-essential make git wget python3
+
+    - name: Clone Rockchip U-Boot
+      run: |
+        git clone --depth=1 -b next-dev https://github.com/rockchip-linux/u-boot.git
+        cp ../configs/rk3566_miyoo_defconfig u-boot/configs/
+        cp ../u-boot-miyoo.dts u-boot/arch/arm/dts/rk3566-miyoo.dts
+        cp ../boot.cmd ../build.sh u-boot/
+        cd u-boot
+        chmod +x build.sh
+        ./build.sh
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: bootloader
+        path: u-boot/bootloader.bin
