@@ -26,8 +26,7 @@ jobs:
    
         tar xvf brick-toolchain.tar.gz
         mv brick /opt
-        export PATH=/opt/brick/bin:$(shell echo $$PATH)
-        ls
+        
         cd miyoo
         make
         
